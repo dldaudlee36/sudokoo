@@ -1,4 +1,4 @@
-const CACHE_NAME = "sudoku-pwa-v4";
+const CACHE_NAME = "sudoku-pwa-v5";
 const ASSETS = [
   "./",
   "./index.html",
