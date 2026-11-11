@@ -335,8 +335,10 @@ button, [role="button"], .sudoku-cell {
 /* 9x9 스도쿠 보드 */
 .board-container {
   position: relative;
-  width: 100%;
+  width: min(100%, 50dvh);
+  height: min(100%, 50dvh);
   aspect-ratio: 1 / 1;
+  max-width: 50dvh;
   max-height: 50dvh;
   margin: 0 auto;
   display: flex;
@@ -347,6 +349,7 @@ button, [role="button"], .sudoku-cell {
 .sudoku-board {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(9, 1fr);
