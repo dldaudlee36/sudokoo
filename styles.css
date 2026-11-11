@@ -337,7 +337,7 @@ button, [role="button"], .sudoku-cell {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-height: 54dvh;
+  max-height: 50dvh;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -466,18 +466,13 @@ button, [role="button"], .sudoku-cell {
   font-weight: 700;
 }
 
-/* 하단 컨트롤 패널 */
-.control-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  flex-shrink: 0;
-}
-
+/* 기능 툴바 (보드 상단) */
 .action-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  flex-shrink: 0;
 }
 
 .tool-btn {
@@ -487,9 +482,9 @@ button, [role="button"], .sudoku-cell {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 0.5rem 0.2rem;
-  min-height: 58px;
-  border-radius: 14px;
+  padding: 0.45rem 0.2rem;
+  min-height: 52px;
+  border-radius: 12px;
   color: var(--text-secondary);
   background: var(--bg-secondary);
   transition: transform 90ms ease-out, background 100ms;
@@ -526,6 +521,15 @@ button, [role="button"], .sudoku-cell {
   background: var(--accent);
 }
 
+/* 하단 컨트롤 패널 (숫자 패드 전용) */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0 0.6rem;
+  flex-shrink: 0;
+}
+
 /* 1~9 숫자 패드 */
 .numpad {
   display: grid;
@@ -534,7 +538,7 @@ button, [role="button"], .sudoku-cell {
 }
 
 .num-btn {
-  height: 56px;
+  height: 60px;
   border-radius: 12px;
   background: var(--bg-secondary);
   display: flex;

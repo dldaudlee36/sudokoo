@@ -85,6 +85,27 @@
         </div>
       </section>
 
+      <!-- 4개 기능 버튼 (실행취소, 지우개, 메모, 힌트) -->
+      <section class="action-bar" aria-label="게임 도구">
+        <button type="button" id="btn-undo" class="tool-btn" aria-label="실행취소">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+          <span class="tool-label">실행취소</span>
+        </button>
+        <button type="button" id="btn-erase" class="tool-btn" aria-label="지우개">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z"/><path d="M17 17L7 7"/></svg>
+          <span class="tool-label">지우개</span>
+        </button>
+        <button type="button" id="btn-notes" class="tool-btn" aria-label="메모 모드 토글">
+          <span class="tool-badge" id="notes-badge">OFF</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+          <span class="tool-label">메모</span>
+        </button>
+        <button type="button" id="btn-hint" class="tool-btn" aria-label="힌트 보기">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+          <span class="tool-label">힌트</span>
+        </button>
+      </section>
+
       <!-- SudokuBoardView 대응 -->
       <section class="board-container">
         <div id="sudoku-board" class="sudoku-board" role="grid" aria-label="스도쿠 9x9 보드"></div>
@@ -94,28 +115,8 @@
         </div>
       </section>
 
-      <!-- control_panel.xml 대응 (4개 툴 버튼) -->
+      <!-- control_panel.xml 대응 (하단 숫자 입력 패드) -->
       <section class="control-panel">
-        <div class="action-bar">
-          <button type="button" id="btn-undo" class="tool-btn" aria-label="실행취소">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
-            <span class="tool-label">실행취소</span>
-          </button>
-          <button type="button" id="btn-erase" class="tool-btn" aria-label="지우개">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z"/><path d="M17 17L7 7"/></svg>
-            <span class="tool-label">지우개</span>
-          </button>
-          <button type="button" id="btn-notes" class="tool-btn" aria-label="메모 모드 토글">
-            <span class="tool-badge" id="notes-badge">OFF</span>
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-            <span class="tool-label">메모</span>
-          </button>
-          <button type="button" id="btn-hint" class="tool-btn" aria-label="힌트 보기">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
-            <span class="tool-label">힌트</span>
-          </button>
-        </div>
-
         <div id="numpad" class="numpad" role="group" aria-label="숫자 입력 패드">
           <!-- 1~9 버튼이 JS로 렌더링됨 -->
         </div>
