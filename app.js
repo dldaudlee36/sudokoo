@@ -547,12 +547,11 @@
     saveCurrentGame();
 
     el.resultTitle.textContent = "퍼즐 완료";
-    el.resultSubtitle.textContent = `${DIFF_LABELS[finishedGame.datasetName]} #${finishedGame.datasetIndex} (원본 ID: ${finishedGame.originalId} 사본)`;
+    el.resultSubtitle.textContent = `${DIFF_LABELS[finishedGame.datasetName]} #${finishedGame.datasetIndex}`;
     el.resultStats.innerHTML = `
       <div class="result-stat-row"><span>소요 시간</span><strong>${formatTime(finishedGame.elapsed)}</strong></div>
       <div class="result-stat-row"><span>실수 횟수</span><strong>${finishedGame.mistakes}회</strong></div>
       <div class="result-stat-row"><span>최종 점수</span><strong>${finishedGame.score}점</strong></div>
-      <div class="result-stat-row"><span>데이터 출처</span><strong>${finishedGame.datasetName}.json 사본</strong></div>
     `;
     el.btnSecondChance.hidden = true;
     el.modalResult.hidden = false;
@@ -570,7 +569,7 @@
     el.resultSubtitle.textContent = "실수 3회를 초과했습니다.";
     el.resultStats.innerHTML = `
       <div class="result-stat-row"><span>진행 시간</span><strong>${formatTime(game.elapsed)}</strong></div>
-      <div class="result-stat-row"><span>원본 퍼즐</span><strong>${game.datasetName}.json #${game.datasetIndex}</strong></div>
+      <div class="result-stat-row"><span>난이도</span><strong>${DIFF_LABELS[game.datasetName]} #${game.datasetIndex}</strong></div>
     `;
     el.btnSecondChance.hidden = false;
     el.modalResult.hidden = false;
@@ -579,7 +578,7 @@
   function renderGame() {
     if (!game) return;
 
-    el.infoDifficulty.textContent = `${DIFF_LABELS[game.datasetName]} #${game.datasetIndex} (ID:${game.originalId})`;
+    el.infoDifficulty.textContent = DIFF_LABELS[game.datasetName] || "";
     el.infoMistakes.textContent = settings.mistakeLimit ? `${game.mistakes}/3` : `${game.mistakes}`;
     el.infoScore.textContent = String(game.score);
     el.infoTimer.textContent = formatTime(game.elapsed);
