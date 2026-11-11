@@ -1,7 +1,7 @@
 {
-  "name": "스도쿠 (원본 퍼즐 사본)",
+  "name": "스도쿠",
   "short_name": "스도쿠",
-  "description": "APK 추출 원본 퍼즐 데이터(3,693개 사본) 기반 모바일 스도쿠 웹앱",
+  "description": "클래식 모바일 스도쿠 퍼즐. 일일 챌린지, 메모 모드, 3가지 테마 지원.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

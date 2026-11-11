@@ -4,8 +4,8 @@ html[data-theme="light"] {
   --bg-secondary: #f3f6fb;
   --bg-surface: #ffffff;
   --text-primary: #1c2536;
-  --text-secondary: #687387;
-  --text-muted: #98a2b3;
+  --text-secondary: #475467;
+  --text-muted: #667085;
   --accent: #3262d8;
   --accent-soft: #e3ecfc;
   --board-border: #222c3c;
@@ -15,11 +15,11 @@ html[data-theme="light"] {
   --cell-area: #e8eef7;
   --cell-same: #c7d9f8;
   --cell-error-bg: #fadbd8;
-  --cell-error-text: #d92d20;
+  --cell-error-text: #b42318;
   --user-digit: #2557d6;
   --given-digit: #1c2536;
-  --note-digit: #5e6b82;
-  --badge-off: #8b95a7;
+  --note-digit: #475467;
+  --badge-off: #667085;
   --shadow: 0 6px 24px rgba(16, 24, 40, 0.08);
 }
 
@@ -28,8 +28,8 @@ html[data-theme="sepia"] {
   --bg-secondary: #ebe1cc;
   --bg-surface: #faf5e8;
   --text-primary: #3b2f23;
-  --text-secondary: #766451;
-  --text-muted: #9e8c78;
+  --text-secondary: #5c4735;
+  --text-muted: #7c6854;
   --accent: #8c5327;
   --accent-soft: #e6d4b7;
   --board-border: #4a3a2a;
@@ -39,11 +39,11 @@ html[data-theme="sepia"] {
   --cell-area: #efe5cf;
   --cell-same: #e5cea6;
   --cell-error-bg: #f4c7c3;
-  --cell-error-text: #b42318;
+  --cell-error-text: #912018;
   --user-digit: #8c4616;
   --given-digit: #3b2f23;
-  --note-digit: #6e5c49;
-  --badge-off: #93806c;
+  --note-digit: #5c4735;
+  --badge-off: #7c6854;
   --shadow: 0 6px 24px rgba(59, 47, 35, 0.12);
 }
 
@@ -51,9 +51,9 @@ html[data-theme="dark"] {
   --bg-primary: #141821;
   --bg-secondary: #1e2432;
   --bg-surface: #1d222f;
-  --text-primary: #eef2f8;
-  --text-secondary: #94a0b8;
-  --text-muted: #5d677d;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   --accent: #5889f7;
   --accent-soft: #263559;
   --board-border: #7f8ea8;
@@ -63,11 +63,11 @@ html[data-theme="dark"] {
   --cell-area: #232a3b;
   --cell-same: #314b80;
   --cell-error-bg: #4c2328;
-  --cell-error-text: #f97066;
-  --user-digit: #6ea0ff;
-  --given-digit: #eef2f8;
-  --note-digit: #8e9bb5;
-  --badge-off: #58637a;
+  --cell-error-text: #fca5a5;
+  --user-digit: #7baaff;
+  --given-digit: #f1f5f9;
+  --note-digit: #94a3b8;
+  --badge-off: #64748b;
   --shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -75,6 +75,11 @@ html[data-theme="dark"] {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 2px;
 }
 
 html, body {
@@ -145,12 +150,6 @@ button, [role="button"], .sudoku-cell {
   letter-spacing: -0.02em;
 }
 
-.dataset-badge {
-  font-size: 0.7rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
 .header-actions {
   display: flex;
   align-items: center;
@@ -158,9 +157,11 @@ button, [role="button"], .sudoku-cell {
 }
 
 .icon-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -169,7 +170,7 @@ button, [role="button"], .sudoku-cell {
 }
 
 .icon-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.92);
   background: var(--bg-secondary);
 }
 
@@ -392,6 +393,13 @@ button, [role="button"], .sudoku-cell {
 .sudoku-cell.is-error {
   background: var(--cell-error-bg);
   color: var(--cell-error-text) !important;
+  animation: shakeError 280ms ease-in-out;
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
 }
 
 .sudoku-cell.is-given {
@@ -709,8 +717,8 @@ button, [role="button"], .sudoku-cell {
   grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--cell-border);
   background: var(--bg-surface);
-  padding-top: 0.4rem;
-  padding-bottom: calc(0.4rem + env(safe-area-inset-bottom, 0px));
+  padding-top: 0.35rem;
+  padding-bottom: calc(0.35rem + env(safe-area-inset-bottom, 0px));
   flex-shrink: 0;
 }
 
@@ -723,7 +731,13 @@ button, [role="button"], .sudoku-cell {
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-secondary);
-  padding: 0.25rem 0;
+  padding: 0.35rem 0;
+  min-height: 48px;
+  transition: transform 90ms ease-out, color 120ms;
+}
+
+.nav-item:active {
+  transform: scale(0.94);
 }
 
 .nav-item.active {
@@ -734,22 +748,50 @@ button, [role="button"], .sudoku-cell {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
   z-index: 50;
+  animation: modalFadeIn 200ms ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .bottom-sheet {
   width: 100%;
   max-width: 480px;
   background: var(--bg-surface);
-  border-radius: 20px 20px 0 0;
-  padding: 1.15rem 1.15rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  border-radius: 24px 24px 0 0;
+  padding: 0.75rem 1.15rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  box-shadow: 0 -8px 36px rgba(0, 0, 0, 0.18);
+  animation: sheetSlideUp 280ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  will-change: transform;
+}
+
+.bottom-sheet::before {
+  content: "";
+  width: 38px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--text-muted);
+  opacity: 0.45;
+  margin: 0 auto 0.25rem;
+  display: block;
+  flex-shrink: 0;
+}
+
+@keyframes sheetSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
 .sheet-header {
@@ -771,18 +813,20 @@ button, [role="button"], .sudoku-cell {
 
 .sheet-option {
   width: 100%;
+  min-height: 52px;
   padding: 0.9rem 1rem;
   background: var(--bg-secondary);
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 0.95rem;
   font-weight: 700;
+  transition: transform 90ms ease-out;
 }
 
 .sheet-option:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 .sheet-count {
@@ -805,8 +849,8 @@ button, [role="button"], .sudoku-cell {
 
 .specific-puzzle-box input {
   width: 100%;
-  padding: 0.65rem 0.8rem;
-  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
   border: 1px solid var(--cell-border);
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -822,21 +866,21 @@ button, [role="button"], .sudoku-cell {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.55rem 0.25rem;
+  padding: 0.65rem 0.25rem;
   font-size: 0.92rem;
   font-weight: 600;
 }
 
 .setting-row input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   accent-color: var(--accent);
 }
 
 .pwa-guide-box {
   background: var(--bg-secondary);
-  padding: 0.85rem;
-  border-radius: 12px;
+  padding: 0.9rem;
+  border-radius: 14px;
   font-size: 0.8rem;
   line-height: 1.45;
   color: var(--text-secondary);
@@ -853,13 +897,21 @@ button, [role="button"], .sudoku-cell {
   max-width: 380px;
   margin: auto;
   background: var(--bg-surface);
-  border-radius: 20px;
-  padding: 1.5rem;
+  border-radius: 24px;
+  padding: 1.6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 0.75rem;
+  box-shadow: 0 12px 42px rgba(0, 0, 0, 0.24);
+  animation: dialogPop 240ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+@keyframes dialogPop {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .result-stats {

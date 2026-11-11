@@ -146,8 +146,22 @@
     return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
   }
 
-  // Web Audio 효과음 (iOS Safari 호환)
+  function triggerHaptic(type) {
+    if (!navigator.vibrate) return;
+    try {
+      if (type === "tap") navigator.vibrate(10);
+      else if (type === "value") navigator.vibrate(18);
+      else if (type === "note") navigator.vibrate(12);
+      else if (type === "error") navigator.vibrate([35, 40, 35]);
+      else if (type === "win") navigator.vibrate([20, 40, 30, 40, 50]);
+    } catch {
+      // ignore
+    }
+  }
+
+  // Web Audio 효과음 (iOS Safari 호환) + 햅틱 연동
   function playTone(type) {
+    triggerHaptic(type);
     if (!settings.sound) return;
     try {
       if (!audioCtx) {
@@ -922,6 +936,76 @@
       saveJSON(STORAGE_KEYS.STATS, stats);
       renderStats();
     });
+
+    // 모달 backdrop 클릭 시 닫기
+    [el.modalNewGame, el.modalSettings].forEach((backdrop) => {
+      backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) backdrop.hidden = true;
+      });
+    });
+
+    // 키보드 Escape 키 닫기 (접근성)
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        el.modalNewGame.hidden = true;
+        el.modalSettings.hidden = true;
+        if (game && !el.pauseOverlay.hidden) {
+          game.paused = false;
+          renderGame();
+          startTimer();
+        }
+      }
+    });
+
+    // 바텀 시트 스와이프 다운 닫기 제스처 (애플 디자인)
+    function attachSwipeDown(modalBackdrop) {
+      const sheet = modalBackdrop.querySelector(".bottom-sheet");
+      if (!sheet) return;
+      let startY = 0;
+      let currentY = 0;
+      let tracking = false;
+
+      sheet.addEventListener("touchstart", (e) => {
+        if (sheet.scrollTop > 5) return;
+        startY = e.touches[0].clientY;
+        currentY = startY;
+        tracking = true;
+      }, { passive: true });
+
+      sheet.addEventListener("touchmove", (e) => {
+        if (!tracking) return;
+        currentY = e.touches[0].clientY;
+        const diff = currentY - startY;
+        if (diff > 0) {
+          sheet.style.transform = `translateY(${diff}px)`;
+        }
+      }, { passive: true });
+
+      sheet.addEventListener("touchend", () => {
+        if (!tracking) return;
+        tracking = false;
+        const diff = currentY - startY;
+        if (diff > 75) {
+          sheet.style.transition = "transform 140ms ease-out";
+          sheet.style.transform = "translateY(100%)";
+          setTimeout(() => {
+            modalBackdrop.hidden = true;
+            sheet.style.transform = "";
+            sheet.style.transition = "";
+          }, 140);
+        } else {
+          sheet.style.transition = "transform 140ms ease-out";
+          sheet.style.transform = "translateY(0)";
+          setTimeout(() => {
+            sheet.style.transform = "";
+            sheet.style.transition = "";
+          }, 140);
+        }
+      }, { passive: true });
+    }
+
+    attachSwipeDown(el.modalNewGame);
+    attachSwipeDown(el.modalSettings);
 
     el.btnSecondChance.addEventListener("click", () => {
       if (!game) return;
