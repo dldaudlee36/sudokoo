@@ -14,8 +14,8 @@
 
   const THEME_COLORS = {
     light: "#ffffff",
-    sepia: "#f6efe0",
-    dark: "#141821"
+    sepia: "#f2eadb",
+    dark: "#17171a"
   };
 
   const STORAGE_KEYS = {
@@ -268,12 +268,46 @@
       btn.className = "num-btn";
       btn.dataset.digit = String(d);
       btn.innerHTML = `<span class="num-digit">${d}</span><span class="num-remain" id="remain-${d}">9</span>`;
+
+      let holdTimer = null;
+      let didHold = false;
+
       btn.addEventListener("pointerdown", (e) => {
         e.preventDefault();
-        onDigitTap(d);
+        didHold = false;
+        holdTimer = setTimeout(() => {
+          didHold = true;
+          toggleDigitLock(d);
+        }, 360);
       });
+
+      btn.addEventListener("pointerup", (e) => {
+        e.preventDefault();
+        if (holdTimer) clearTimeout(holdTimer);
+        if (!didHold) {
+          onDigitTap(d);
+        }
+      });
+
+      btn.addEventListener("pointercancel", () => {
+        if (holdTimer) clearTimeout(holdTimer);
+      });
+
       el.numpad.appendChild(btn);
     }
+  }
+
+  function toggleDigitLock(digit) {
+    if (!game || game.paused) return;
+    triggerHaptic("value");
+    if (game.fastMode && game.lockedDigit === digit) {
+      game.fastMode = false;
+      game.lockedDigit = null;
+    } else {
+      game.fastMode = true;
+      game.lockedDigit = digit;
+    }
+    renderGame();
   }
 
   async function startNewGame(datasetName, specificIndex1Based = null, dcDateKey = null) {
@@ -594,14 +628,16 @@
 
     el.infoDifficulty.textContent = DIFF_LABELS[game.datasetName] || "";
     el.infoMistakes.textContent = settings.mistakeLimit ? `${game.mistakes}/3` : `${game.mistakes}`;
-    el.infoScore.textContent = String(game.score);
+    if (el.infoScore) el.infoScore.textContent = String(game.score);
     el.infoTimer.textContent = formatTime(game.elapsed);
 
     el.btnNotes.classList.toggle("is-active", game.notesMode);
     el.notesBadge.textContent = game.notesMode ? "ON" : "OFF";
 
-    el.btnFastMode.classList.toggle("is-active", game.fastMode);
-    el.fastBadge.textContent = game.fastMode ? "ON" : "OFF";
+    if (el.btnFastMode) {
+      el.btnFastMode.classList.toggle("is-active", game.fastMode);
+      if (el.fastBadge) el.fastBadge.textContent = game.fastMode ? "ON" : "OFF";
+    }
 
     el.pauseOverlay.hidden = !game.paused;
 
@@ -875,17 +911,19 @@
       playTone("tap");
       renderGame();
     });
-    el.btnFastMode.addEventListener("click", () => {
-      if (!game || game.paused) return;
-      game.fastMode = !game.fastMode;
-      if (game.fastMode && !game.lockedDigit) {
-        game.lockedDigit = 1;
-      } else if (!game.fastMode) {
-        game.lockedDigit = null;
-      }
-      playTone("tap");
-      renderGame();
-    });
+    if (el.btnFastMode) {
+      el.btnFastMode.addEventListener("click", () => {
+        if (!game || game.paused) return;
+        game.fastMode = !game.fastMode;
+        if (game.fastMode && !game.lockedDigit) {
+          game.lockedDigit = 1;
+        } else if (!game.fastMode) {
+          game.lockedDigit = null;
+        }
+        playTone("tap");
+        renderGame();
+      });
+    }
     el.btnHint.addEventListener("click", onHint);
 
     Array.from(el.bottomNav.querySelectorAll(".nav-item")).forEach((btn) => {

@@ -1,74 +1,74 @@
 :root,
 html[data-theme="light"] {
   --bg-primary: #ffffff;
-  --bg-secondary: #f3f6fb;
+  --bg-secondary: #f5f5f5;
   --bg-surface: #ffffff;
-  --text-primary: #1c2536;
-  --text-secondary: #475467;
-  --text-muted: #667085;
-  --accent: #3262d8;
-  --accent-soft: #e3ecfc;
-  --board-border: #222c3c;
-  --cell-border: #cfd6e3;
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.54);
+  --text-muted: #9e9e9e;
+  --accent: #0081f9;
+  --accent-soft: #e3f2fd;
+  --board-border: #606266;
+  --cell-border: #bec6d4;
   --cell-bg: #ffffff;
   --cell-selected: #bbdefb;
-  --cell-area: #e8eef7;
-  --cell-same: #c7d9f8;
-  --cell-error-bg: #fadbd8;
-  --cell-error-text: #b42318;
-  --user-digit: #2557d6;
-  --given-digit: #1c2536;
-  --note-digit: #475467;
-  --badge-off: #667085;
-  --shadow: 0 6px 24px rgba(16, 24, 40, 0.08);
+  --cell-area: #e2e7ed;
+  --cell-same: #c8d0de;
+  --cell-error-bg: #fdc0cb;
+  --cell-error-text: #ff0000;
+  --user-digit: #0d47a1;
+  --given-digit: #212121;
+  --note-digit: #606266;
+  --badge-off: #9e9e9e;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 html[data-theme="sepia"] {
-  --bg-primary: #f6efe0;
-  --bg-secondary: #ebe1cc;
-  --bg-surface: #faf5e8;
-  --text-primary: #3b2f23;
-  --text-secondary: #5c4735;
-  --text-muted: #7c6854;
-  --accent: #8c5327;
-  --accent-soft: #e6d4b7;
-  --board-border: #4a3a2a;
-  --cell-border: #d3c3a8;
-  --cell-bg: #faf5e8;
-  --cell-selected: #dfc496;
-  --cell-area: #efe5cf;
-  --cell-same: #e5cea6;
-  --cell-error-bg: #f4c7c3;
-  --cell-error-text: #912018;
-  --user-digit: #8c4616;
-  --given-digit: #3b2f23;
-  --note-digit: #5c4735;
-  --badge-off: #7c6854;
-  --shadow: 0 6px 24px rgba(59, 47, 35, 0.12);
+  --bg-primary: #f2eadb;
+  --bg-secondary: #ede5d6;
+  --bg-surface: #f2eadb;
+  --text-primary: #574f48;
+  --text-secondary: #6f6b64;
+  --text-muted: #8c857b;
+  --accent: #4260a0;
+  --accent-soft: #e5ded0;
+  --board-border: #403833;
+  --cell-border: #b3b3b3;
+  --cell-bg: #f2eadb;
+  --cell-selected: #bbdefb;
+  --cell-area: #e8dcc4;
+  --cell-same: #c5c0b7;
+  --cell-error-bg: #ffcdd5;
+  --cell-error-text: #d6113e;
+  --user-digit: #405d96;
+  --given-digit: #574f48;
+  --note-digit: #79736a;
+  --badge-off: #8c857b;
+  --shadow: 0 4px 16px rgba(64, 56, 51, 0.12);
 }
 
 html[data-theme="dark"] {
-  --bg-primary: #141821;
-  --bg-secondary: #1e2432;
-  --bg-surface: #1d222f;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent: #5889f7;
-  --accent-soft: #263559;
-  --board-border: #7f8ea8;
-  --cell-border: #2e374a;
-  --cell-bg: #1b202c;
-  --cell-selected: #2d4678;
-  --cell-area: #232a3b;
-  --cell-same: #314b80;
-  --cell-error-bg: #4c2328;
-  --cell-error-text: #fca5a5;
+  --bg-primary: #17171a;
+  --bg-secondary: #25242c;
+  --bg-surface: #25242c;
+  --text-primary: #e0e0e0;
+  --text-secondary: #9b9b9b;
+  --text-muted: #5c5c5e;
+  --accent: #698fc6;
+  --accent-soft: #1d2538;
+  --board-border: #000000;
+  --cell-border: #191b1c;
+  --cell-bg: #25242c;
+  --cell-selected: #153b78;
+  --cell-area: #1d1d25;
+  --cell-same: #2e2d38;
+  --cell-error-bg: #692937;
+  --cell-error-text: #c84e69;
   --user-digit: #7baaff;
-  --given-digit: #f1f5f9;
-  --note-digit: #94a3b8;
-  --badge-off: #64748b;
-  --shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  --given-digit: #ffffff;
+  --note-digit: #9b9b9b;
+  --badge-off: #5c5c5e;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -284,10 +284,10 @@ button, [role="button"], .sudoku-cell {
 }
 
 .game-info-panel {
-  display: grid;
-  grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr;
+  display: flex;
   align-items: center;
-  padding: 0.25rem 0.15rem;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem;
   flex-shrink: 0;
 }
 
@@ -297,29 +297,38 @@ button, [role="button"], .sudoku-cell {
   gap: 2px;
 }
 
-.timer-item {
+.info-left {
+  align-items: flex-start;
+}
+
+.info-center {
+  align-items: center;
+}
+
+.info-right {
   align-items: flex-end;
 }
 
 .info-label {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .info-value {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .timer-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 700;
   padding: 2px 6px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--bg-secondary);
 }
 
@@ -467,8 +476,8 @@ button, [role="button"], .sudoku-cell {
 
 .action-bar {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.25rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
 }
 
 .tool-btn {
@@ -478,15 +487,17 @@ button, [role="button"], .sudoku-cell {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 0.4rem 0.2rem;
-  border-radius: 10px;
+  padding: 0.5rem 0.2rem;
+  min-height: 58px;
+  border-radius: 14px;
   color: var(--text-secondary);
-  transition: transform 100ms ease-out, background 100ms;
+  background: var(--bg-secondary);
+  transition: transform 90ms ease-out, background 100ms;
 }
 
 .tool-btn:active {
-  transform: scale(0.94);
-  background: var(--bg-secondary);
+  transform: scale(0.93);
+  background: var(--accent-soft);
 }
 
 .tool-btn.is-active {
@@ -501,11 +512,11 @@ button, [role="button"], .sudoku-cell {
 
 .tool-badge {
   position: absolute;
-  top: 2px;
-  right: 6px;
+  top: 4px;
+  right: 8px;
   font-size: 0.58rem;
   font-weight: 800;
-  padding: 1px 4px;
+  padding: 1px 5px;
   border-radius: 999px;
   background: var(--badge-off);
   color: #ffffff;
@@ -523,8 +534,8 @@ button, [role="button"], .sudoku-cell {
 }
 
 .num-btn {
-  height: 54px;
-  border-radius: 10px;
+  height: 56px;
+  border-radius: 12px;
   background: var(--bg-secondary);
   display: flex;
   flex-direction: column;
@@ -534,13 +545,18 @@ button, [role="button"], .sudoku-cell {
 }
 
 .num-btn:active {
-  transform: scale(0.93);
+  transform: scale(0.92);
   background: var(--accent-soft);
 }
 
 .num-btn.is-locked {
-  background: var(--accent);
-  color: #ffffff;
+  background: var(--accent) !important;
+  color: #ffffff !important;
+}
+
+.num-btn.is-locked .num-digit,
+.num-btn.is-locked .num-remain {
+  color: #ffffff !important;
 }
 
 .num-btn.is-completed {
