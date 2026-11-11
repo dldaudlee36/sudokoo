@@ -1,0 +1,19 @@
+{
+  "name": "스도쿠 (원본 퍼즐 사본)",
+  "short_name": "스도쿠",
+  "description": "APK 추출 원본 퍼즐 데이터(3,693개 사본) 기반 모바일 스도쿠 웹앱",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

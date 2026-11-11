@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" id="meta-theme-light" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161a23" id="meta-theme-dark" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="스도쿠" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="icon" type="image/png" href="./icons/icon-192.png" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <title>스도쿠 (원본 퍼즐 사본)</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <!-- 상단 툴바 (toolbar_main.xml 대응) -->
+    <header class="app-header">
+      <button type="button" id="btn-back-home" class="icon-btn" aria-label="메인 화면" hidden>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="header-title-wrap">
+        <h1 id="header-title" class="header-title">스도쿠</h1>
+        <span id="dataset-badge" class="dataset-badge">APK 원본 퍼즐 사본 (3,693개)</span>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="btn-theme" class="icon-btn" aria-label="테마 변경" title="테마 변경 (라이트/세피아/다크)">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button type="button" id="btn-settings" class="icon-btn" aria-label="설정">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 1. 메인 홈 화면 -->
+    <main id="screen-home" class="screen active">
+      <div class="home-hero">
+        <div class="dc-card" id="home-dc-card">
+          <div class="dc-card-badge">일일 챌린지 (dc_*.json 사본)</div>
+          <div class="dc-card-date" id="home-dc-date">11월 11일</div>
+          <div class="dc-card-status" id="home-dc-status">오늘의 퍼즐 도전 가능</div>
+          <button type="button" id="btn-play-today-dc" class="secondary-btn">플레이</button>
+        </div>
+
+        <div class="home-main-cta">
+          <button type="button" id="btn-continue-game" class="primary-btn continue-btn" hidden>
+            <span class="btn-main-text">이어서 하기</span>
+            <span class="btn-sub-text" id="continue-meta">쉬움 #1 · 00:00</span>
+          </button>
+          <button type="button" id="btn-open-new-game" class="primary-btn">새 게임</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- 2. 게임 플레이 화면 (activity_game_play.xml 대응) -->
+    <main id="screen-game" class="screen" hidden>
+      <!-- game_info_panel.xml 대응 -->
+      <section class="game-info-panel" aria-label="게임 정보">
+        <div class="info-item">
+          <span class="info-label">난이도 / 원본ID</span>
+          <span class="info-value" id="info-difficulty">쉬움 #1</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">실수</span>
+          <span class="info-value" id="info-mistakes">0/3</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">점수</span>
+          <span class="info-value" id="info-score">0</span>
+        </div>
+        <div class="info-item timer-item">
+          <span class="info-label">시간</span>
+          <button type="button" id="btn-pause" class="timer-btn" aria-label="일시정지">
+            <span id="info-timer">00:00</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- SudokuBoardView 대응 -->
+      <section class="board-container">
+        <div id="sudoku-board" class="sudoku-board" role="grid" aria-label="스도쿠 9x9 보드"></div>
+        <div id="pause-overlay" class="pause-overlay" hidden>
+          <p class="pause-title">게임 일시정지됨</p>
+          <button type="button" id="btn-resume" class="primary-btn">계속하기</button>
+        </div>
+      </section>
+
+      <!-- control_panel.xml 대응 -->
+      <section class="control-panel">
+        <div class="action-bar">
+          <button type="button" id="btn-undo" class="tool-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+            <span class="tool-label">실행취소</span>
+          </button>
+          <button type="button" id="btn-erase" class="tool-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z"/><path d="M17 17L7 7"/></svg>
+            <span class="tool-label">지우개</span>
+          </button>
+          <button type="button" id="btn-notes" class="tool-btn">
+            <span class="tool-badge" id="notes-badge">OFF</span>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+            <span class="tool-label">메모</span>
+          </button>
+          <button type="button" id="btn-fast-mode" class="tool-btn">
+            <span class="tool-badge" id="fast-badge">OFF</span>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span class="tool-label">숫자고정</span>
+          </button>
+          <button type="button" id="btn-hint" class="tool-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+            <span class="tool-label">힌트</span>
+          </button>
+        </div>
+
+        <div id="numpad" class="numpad" role="group" aria-label="숫자 입력 패드">
+          <!-- 1~9 버튼이 JS로 렌더링됨 -->
+        </div>
+      </section>
+    </main>
+
+    <!-- 3. 일일 챌린지 화면 (activity_dc.xml 대응) -->
+    <main id="screen-dc" class="screen" hidden>
+      <div class="dc-container">
+        <div class="dc-header-bar">
+          <button type="button" id="dc-prev-month" class="icon-btn" aria-label="이전 달">&lt;</button>
+          <h2 id="dc-month-title" class="dc-month-title">2026년 11월</h2>
+          <button type="button" id="dc-next-month" class="icon-btn" aria-label="다음 달">&gt;</button>
+        </div>
+        <p class="dc-subtitle">APK 내장 dc_easy / dc_medium / dc_hard / dc_expert (각 365개 사본) 매핑</p>
+        <div class="dc-weekdays">
+          <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+        </div>
+        <div id="dc-calendar-grid" class="dc-calendar-grid"></div>
+        <div class="dc-footer">
+          <div class="dc-progress-text" id="dc-progress-text">이달의 완료: 0일</div>
+          <button type="button" id="btn-start-selected-dc" class="primary-btn">선택한 날짜 플레이</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- 4. 통계 화면 (activity_statistics.xml 대응) -->
+    <main id="screen-stats" class="screen" hidden>
+      <div class="stats-container">
+        <div class="stats-tabs" id="stats-tabs">
+          <button type="button" class="stats-tab active" data-diff="easy">쉬움</button>
+          <button type="button" class="stats-tab" data-diff="medium">보통</button>
+          <button type="button" class="stats-tab" data-diff="hard">어려움</button>
+          <button type="button" class="stats-tab" data-diff="expert">전문가</button>
+        </div>
+        <div class="stats-cards" id="stats-content"></div>
+        <button type="button" id="btn-reset-stats" class="danger-outline-btn">통계 초기화</button>
+      </div>
+    </main>
+
+    <!-- 하단 탭 내비게이션 (design_bottom_navigation_item 대응) -->
+    <nav id="bottom-nav" class="bottom-nav">
+      <button type="button" class="nav-item active" data-target="home">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>메인</span>
+      </button>
+      <button type="button" class="nav-item" data-target="dc">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>일일 챌린지</span>
+      </button>
+      <button type="button" class="nav-item" data-target="stats">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>통계</span>
+      </button>
+    </nav>
+
+    <!-- 새 게임 바텀 시트 (bottom_sheet_new_game.xml 대응) -->
+    <div id="modal-new-game" class="modal-backdrop" hidden>
+      <div class="bottom-sheet">
+        <div class="sheet-header">
+          <h3>난이도 선택 (원본 사본 데이터)</h3>
+          <button type="button" id="btn-close-new-game" class="icon-btn" aria-label="닫기">✕</button>
+        </div>
+        <div class="sheet-list">
+          <button type="button" class="sheet-option" data-diff="easy">
+            <span>쉬움 (easy.json)</span>
+            <span class="sheet-count">727개 퍼즐 사본</span>
+          </button>
+          <button type="button" class="sheet-option" data-diff="medium">
+            <span>보통 (medium.json)</span>
+            <span class="sheet-count">479개 퍼즐 사본</span>
+          </button>
+          <button type="button" class="sheet-option" data-diff="hard">
+            <span>어려움 (hard.json)</span>
+            <span class="sheet-count">341개 퍼즐 사본</span>
+          </button>
+          <button type="button" class="sheet-option" data-diff="expert">
+            <span>전문가 (expert.json)</span>
+            <span class="sheet-count">686개 퍼즐 사본</span>
+          </button>
+        </div>
+        <div class="specific-puzzle-box">
+          <label for="input-puzzle-index">특정 퍼즐 번호 지정 (선택사항, 1부터 시작)</label>
+          <input type="number" id="input-puzzle-index" inputmode="numeric" min="1" max="727" placeholder="비워두면 미완료/무작위 원본 퍼즐 선택" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 설정 모달 (res/xml/game_settings.xml 대응) -->
+    <div id="modal-settings" class="modal-backdrop" hidden>
+      <div class="bottom-sheet">
+        <div class="sheet-header">
+          <h3>게임 설정</h3>
+          <button type="button" id="btn-close-settings" class="icon-btn" aria-label="닫기">✕</button>
+        </div>
+        <div class="settings-list">
+          <label class="setting-row">
+            <span>효과음</span>
+            <input type="checkbox" id="set-sound" checked />
+          </label>
+          <label class="setting-row">
+            <span>실수 한도 (3회 제한)</span>
+            <input type="checkbox" id="set-mistake-limit" checked />
+          </label>
+          <label class="setting-row">
+            <span>메모 자동 삭제 (행/열/박스)</span>
+            <input type="checkbox" id="set-auto-remove-notes" checked />
+          </label>
+          <label class="setting-row">
+            <span>동일한 숫자 하이라이트</span>
+            <input type="checkbox" id="set-highlight-same" checked />
+          </label>
+          <label class="setting-row">
+            <span>행/열/구역 가이드 하이라이트</span>
+            <input type="checkbox" id="set-highlight-area" checked />
+          </label>
+        </div>
+        <div class="pwa-guide-box">
+          <strong>아이폰 사파리 설치 방법</strong>
+          <p>사파리 하단 공유 버튼 탭 → 홈 화면에 추가 선택 시 전체 화면 앱으로 구동됩니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 승리/게임오버 모달 (activity_you_win.xml / activity_game_over.xml 대응) -->
+    <div id="modal-result" class="modal-backdrop" hidden>
+      <div class="dialog-card">
+        <h3 id="result-title">퍼즐 완료</h3>
+        <p id="result-subtitle">쉬움 #1 (원본 데이터 사본)</p>
+        <div class="result-stats" id="result-stats"></div>
+        <div class="dialog-actions">
+          <button type="button" id="btn-second-chance" class="secondary-btn" hidden>실수 1회 복구 후 계속</button>
+          <button type="button" id="btn-result-new" class="primary-btn">새 게임</button>
+          <button type="button" id="btn-result-home" class="text-btn">메인 화면</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
